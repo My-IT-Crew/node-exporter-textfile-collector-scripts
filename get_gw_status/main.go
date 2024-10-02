@@ -35,12 +35,13 @@ func parse_dr_gw_status(body_response []byte) {
 	// Extract all Gateways
 	gateways := rpc_response.Result.Gateways
 
-	for _, element := range gateways {
+  fmt.Println("# TYPE opensips_dr_gw_status gauge")
+	
+  for _, element := range gateways {
 		var state int = 0
 		if element.State == "Active" {
 			state = 1
 		}
-		fmt.Println("# TYPE opensips_dr_gw_status gauge")
 		fmt.Printf("opensips_dr_gw_status{id=\"%s\",ip=\"%s\"} %d\n", element.ID, element.IP, state)
 	}
 }
