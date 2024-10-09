@@ -69,7 +69,7 @@ def _write_pending_upgrades(registry, cache):
 def _write_held_upgrades(registry, cache):
     held_candidates = {
         p.candidate for p in cache
-        if (p.is_upgradable and p._pkg.selected_state == apt_pkg.SELSTATE_HOLD) or p.phasing_applied
+        if (p.is_upgradable and p._pkg.selected_state == apt_pkg.SELSTATE_HOLD) or (hasattr(p, 'phasing_applied') and p.phasing_applied)
     }
     upgrade_list = _convert_candidates_to_upgrade_infos(held_candidates)
 
